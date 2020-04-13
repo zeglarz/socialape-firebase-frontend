@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
+import Scream from '../components/Scream';
 
 class Home extends Component {
     state = {
@@ -9,9 +10,9 @@ class Home extends Component {
     componentDidMount() {
         fetch('/api/screams')
             .then(res => res.json())
-            .then(res => {
+            .then(screams => {
                 this.setState({
-                    screams: res
+                    screams
                 });
 
             })
@@ -20,10 +21,10 @@ class Home extends Component {
 
     render() {
         let recentScreamMarkup = this.state.screams ? (
-            this.state.screams.map(scream => <p>{scream.body}</p>)
+            this.state.screams.map((scream, i) => <Scream key={i} scream={scream}/>)
         ) : <p>Loading...</p>;
         return (
-            <Grid container spacing={16}>
+            <Grid container spacing={6}>
                 <Grid item sm={8} xs={12}>
                     {recentScreamMarkup}
                 </Grid>
