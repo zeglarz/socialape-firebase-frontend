@@ -39,7 +39,19 @@ class Login extends Component {
     }
 
     handleSubmit = e => {
-        console.log('submitted');
+        e.preventDefault();
+        fetch('/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: this.state.email,
+                password: this.state.password
+            })
+        })
+            .then(res => res.json())
+            .then(data => console.log(data));
     };
     handleChange = e => {
         this.setState({
