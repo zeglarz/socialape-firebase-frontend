@@ -23,6 +23,11 @@ const styles = {
     },
     button: {
         margin: '20px auto'
+    },
+    customError: {
+        color: 'red',
+        fontSize: '0.8rem',
+        margin: '5px auto'
     }
 };
 
@@ -38,8 +43,15 @@ class Login extends Component {
         };
     }
 
+    resetErrors = () => setTimeout(() => {
+        this.setState({ errors: {} });
+    }, 2000);
+
     handleSubmit = e => {
         e.preventDefault();
+        this.setState({
+            loading: true
+        });
         fetch('/api/login', {
             method: 'POST',
             headers: {
@@ -51,7 +63,25 @@ class Login extends Component {
             })
         })
             .then(res => res.json())
-            .then(data => console.log(data));
+            .then(data => {
+                console.log(data);
+                this.setState({
+                    loading: false
+                });
+                if (data.token) {
+                    this.props.history.push('/');
+                } else {
+                    throw data;
+                }
+            })
+            .catch(err => {
+                this.setState({
+                    errors: err,
+                    loading: false
+                });
+
+            });
+        this.resetErrors();
     };
     handleChange = e => {
         this.setState({
@@ -59,8 +89,10 @@ class Login extends Component {
         });
     };
 
+
     render() {
         const { classes } = this.props;
+        const { errors, loading } = this.state;
         return (
             <Grid container className={classes.form}>
                 <Grid item sm/>
@@ -69,10 +101,15 @@ class Login extends Component {
                     <Typography variant='h2' className={classes.pageTitle}>Login</Typography>
                     <form noValidate onSubmit={this.handleSubmit}>
                         <TextField id='email' name='email' type='email' label='Email' className={classes.textField}
-                                   value={this.state.email} onChange={this.handleChange} fullWidth/>
+                                   value={this.state.email} onChange={this.handleChange}
+                                   helperText={errors.email} error={!!errors.email} fullWidth/>
                         <TextField id='password' name='password' type='password' label='Password'
                                    className={classes.textField}
-                                   value={this.state.password} onChange={this.handleChange} fullWidth/>
+                                   value={this.state.password} onChange={this.handleChange} helperText={errors.password}
+                                   error={!!errors.password} fullWidth/>
+                        {errors.error &&
+                        <Typography variant={'body2'}
+                                    className={classes.customError}>{errors.error}</Typography>}
                         <Button type='submit' variant={'contained'} color={'primary'}
                                 className={classes.button}>Login</Button>
                     </form>
