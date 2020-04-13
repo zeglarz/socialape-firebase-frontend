@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Scream from '../components/Scream';
+import PropTypes from 'prop-types';
 
 class Home extends Component {
     state = {
@@ -21,7 +22,7 @@ class Home extends Component {
 
     render() {
         let recentScreamMarkup = this.state.screams ? (
-            this.state.screams.map((scream, i) => <Scream key={i} scream={scream}/>)
+            this.state.screams.map(scream => <Scream key={scream.screamId} scream={scream}/>)
         ) : <p>Loading...</p>;
         return (
             <Grid container spacing={6}>
@@ -36,4 +37,5 @@ class Home extends Component {
     }
 }
 
+Home.propTypes = {};
 export default Home;
