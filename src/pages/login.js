@@ -52,7 +52,7 @@ class Login extends Component {
                     loading: false
                 });
                 if (data.token) {
-                    localStorage.setItem('Auth Token', `Bearer ${data.token}`);
+                    localStorage.setItem('AuthToken', `Bearer ${data.token}`);
                     this.props.history.push('/');
                 } else {
                     throw data;
