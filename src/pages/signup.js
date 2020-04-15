@@ -31,10 +31,6 @@ class Signup extends Component {
         };
     }
 
-    resetErrors = () => setTimeout(() => {
-        this.setState({ errors: {} });
-    }, 2000);
-
     handleSubmit = e => {
         e.preventDefault();
         const newUserData = {
@@ -51,18 +47,9 @@ class Signup extends Component {
         });
     };
 
-    componentWillReceiveProps(prevProps) {
-        if (prevProps.UI.errors) {
-            this.setState({
-                errors: prevProps.UI.errors
-            });
-            this.resetErrors();
-        }
-    }
 
     render() {
-        const { classes, UI: { loading } } = this.props;
-        const { errors } = this.state;
+        const { classes, UI: { loading, errors } } = this.props;
         return (
             <Grid container className={classes.form}>
                 <Grid item sm/>
@@ -99,7 +86,10 @@ class Signup extends Component {
 }
 
 Signup.propTypes = {
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired,
+    UI: PropTypes.object.isRequired,
+    signupUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({

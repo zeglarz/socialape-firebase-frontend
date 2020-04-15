@@ -24,8 +24,7 @@ class Login extends Component {
         super();
         this.state = {
             email: '',
-            password: '',
-            errors: {}
+            password: ''
         };
     }
 
@@ -43,22 +42,9 @@ class Login extends Component {
             [e.target.name]: e.target.value
         });
     };
-    resetErrors = () => {
-        setTimeout(() => this.setState({ errors: {} }), 2000);
-    };
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.UI.errors) {
-            this.setState({
-                errors: prevProps.UI.errors
-            });
-            this.resetErrors();
-        }
-    }
 
     render() {
-        const { classes, UI: { loading } } = this.props;
-        const { errors } = this.state;
+        const { classes, UI: { loading, errors } } = this.props;
         return (
             <Grid container className={classes.form}>
                 <Grid item sm/>
@@ -68,10 +54,12 @@ class Login extends Component {
                     <form noValidate onSubmit={this.handleSubmit}>
                         <TextField id='email' name='email' type='email' label='Email' className={classes.textField}
                                    value={this.state.email} onChange={this.handleChange}
-                                   helperText={errors.email} error={!!errors.email} fullWidth/>
+                                   helperText={errors.email}
+                                   error={!!errors.email} fullWidth/>
                         <TextField id='password' name='password' type='password' label='Password'
                                    className={classes.textField}
-                                   value={this.state.password} onChange={this.handleChange} helperText={errors.password}
+                                   value={this.state.password} onChange={this.handleChange}
+                                   helperText={errors.password}
                                    error={!!errors.password} fullWidth/>
                         {errors.error &&
                         <Typography variant={'body2'}
@@ -83,9 +71,10 @@ class Login extends Component {
                             up</Link></small>
                     </form>
                 </Grid>
-                <Grid item sm/>
+                <Grid item sm/>;
             </Grid>
-        );
+        )
+            ;
     }
 }
 
