@@ -10,6 +10,10 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+// Redux stuff
+import { connect } from 'react-redux';
+import { signupUser } from '../redux/actions/userActions';
+
 const styles = theme => ({
     ...theme.spreadThis
 });
@@ -23,7 +27,6 @@ class Signup extends Component {
             password: '',
             confirmPassword: '',
             handle: '',
-            loading: false,
             errors: {}
         };
     }
@@ -34,43 +37,13 @@ class Signup extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        this.setState({
-            loading: true
-        });
-        fetch('/api/signup', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                email: this.state.email,
-                password: this.state.password,
-                confirmPassword: this.state.confirmPassword,
-                handle: this.state.handle
-
-            })
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                this.setState({
-                    loading: false
-                });
-                if (data.token) {
-                    localStorage.setItem('AuthToken', `Bearer ${data.token}`);
-                    this.props.history.push('/');
-                } else {
-                    throw data;
-                }
-            })
-            .catch(err => {
-                this.setState({
-                    errors: err,
-                    loading: false
-                });
-
-            });
-        this.resetErrors();
+        const newUserData = {
+            email: this.state.email,
+            password: this.state.password,
+            confirmPassword: this.state.confirmPassword,
+            handle: this.state.handle
+        };
+        this.props.signupUser(newUserData, this.props.history);
     };
     handleChange = e => {
         this.setState({
@@ -78,10 +51,18 @@ class Signup extends Component {
         });
     };
 
+    componentWillReceiveProps(prevProps) {
+        if (prevProps.UI.errors) {
+            this.setState({
+                errors: prevProps.UI.errors
+            });
+            this.resetErrors();
+        }
+    }
 
     render() {
-        const { classes } = this.props;
-        const { errors, loading } = this.state;
+        const { classes, UI: { loading } } = this.props;
+        const { errors } = this.state;
         return (
             <Grid container className={classes.form}>
                 <Grid item sm/>
@@ -105,7 +86,7 @@ class Signup extends Component {
                                    helperText={errors.confirmPassword}
                                    error={!!errors.confirmPassword} fullWidth/>
                         <Button type='submit' variant={'contained'} color={'primary'} disabled={loading}
-                                className={classes.button}>{this.state.loading ?
+                                className={classes.button}>{loading ?
                             <CircularProgress size={'1.5rem'}/> : 'Sign up'}</Button>
                         <small className={classes.small}>Already have an account? <Link to={'/login'}>Sign
                             in</Link></small>
@@ -120,4 +101,10 @@ class Signup extends Component {
 Signup.propTypes = {
     classes: PropTypes.object.isRequired
 };
-export default withStyles(styles)(Signup);
+
+const mapStateToProps = state => ({
+    user: state.user,
+    UI: state.UI
+});
+
+export default connect(mapStateToProps, { signupUser })(withStyles(styles)(Signup));

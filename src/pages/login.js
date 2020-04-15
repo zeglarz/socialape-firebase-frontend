@@ -77,7 +77,7 @@ class Login extends Component {
                         <Typography variant={'body2'}
                                     className={classes.customError}>{errors.error}</Typography>}
                         <Button type='submit' variant={'contained'} color={'primary'} disabled={loading}
-                                className={classes.button}>{this.state.loading ?
+                                className={classes.button}>{loading ?
                             <CircularProgress size={'1.5rem'}/> : 'Login'}</Button>
                         <small className={classes.small}>Don't have an account? <Link to={'/signup'}>Sign
                             up</Link></small>
