@@ -43,7 +43,18 @@ class Login extends Component {
             [e.target.name]: e.target.value
         });
     };
+    resetErrors = () => {
+        setTimeout(() => this.setState({ errors: {} }), 2000);
+    };
 
+    componentDidUpdate(prevProps) {
+        if (prevProps.UI.errors) {
+            this.setState({
+                errors: prevProps.UI.errors
+            });
+            this.resetErrors();
+        }
+    }
 
     render() {
         const { classes, UI: { loading } } = this.props;
