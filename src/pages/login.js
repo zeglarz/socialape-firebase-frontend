@@ -71,10 +71,9 @@ class Login extends Component {
                             up</Link></small>
                     </form>
                 </Grid>
-                <Grid item sm/>;
+                <Grid item sm/>
             </Grid>
-        )
-            ;
+        )   ;
     }
 }
 
