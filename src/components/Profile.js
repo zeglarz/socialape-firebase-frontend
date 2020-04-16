@@ -13,6 +13,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import LocationOn from '@material-ui/icons/LocationOn';
 import LinkIcon from '@material-ui/icons/Link';
 import CalendarToday from '@material-ui/icons/CalendarToday';
+import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
 
 // Redux stuff
 import { connect } from 'react-redux';
@@ -42,6 +43,9 @@ class Profile extends Component {
     handleEditPicture = () => {
         const fileInput = document.getElementById('imageInput');
         fileInput.click();
+    };
+    handleLogout = () => {
+        this.props.logoutUser();
     };
 
     render() {
@@ -92,6 +96,8 @@ class Profile extends Component {
                             <span>Joined since {dayjs(createdAt).format('MMM YYYY')}</span>
                         </>
                     </div>
+                    <Tooltip title='Logout' placement='top'><IconButton
+                        onClick={this.handleLogout}> <KeyboardReturn color='primary'/></IconButton></Tooltip>
                 </div>
             </Paper>
         ) : (
@@ -100,8 +106,8 @@ class Profile extends Component {
                     No profile found, please try again!
                 </Typography>
                 <div className={classes.buttons}>
-                    <Button variant='container' color='primary' component={Link} to='/login'>Login</Button>
-                    <Button variant='container' color='secondary' component={Link} to='/signup'>Signup</Button>
+                    <Button variant='contained' color='primary' component={Link} to='/login'>Login</Button>
+                    <Button variant='contained' color='secondary' component={Link} to='/signup'>Signup</Button>
                 </div>
             </Paper>
         )) : (<p>Loading...</p>);
