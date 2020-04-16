@@ -20,6 +20,7 @@ import Signup from './pages/signup';
 // Components
 import Navbar from './components/navbar';
 import AuthRoute from './util/AuthRoute';
+import Profile from './components/Profile';
 
 const theme = createMuiTheme(globalTheme);
 const token = localStorage.AuthToken;
