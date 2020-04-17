@@ -25,7 +25,8 @@ class Navbar extends Component {
                     {authenticated ? (
                         <>
                             <MyButton tip='Create a Scream!'><AddIcon color='secondary'/></MyButton>
-                            <MyButton tip='Home'><HomeIcon color='secondary'/></MyButton>
+                            <Link to='/'> <MyButton tip='Home'><HomeIcon color='secondary'/></MyButton>
+                            </Link>
                         </>
                     ) : (
                         <>
