@@ -15,6 +15,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 
 // Icons
 import EditIcon from '@material-ui/icons/Edit';
@@ -45,7 +46,20 @@ class EditDetails extends Component {
     };
     handleClose = () => {
         this.setState({ open: false });
-
+    };
+    handleChange = e => {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    };
+    handleSubmit = () => {
+        const { bio, location, website } = this.state;
+        const userDetails = {
+            bio,
+            location,
+            website
+        };
+        this.props.editUserDetails(userDetails);
     };
 
     componentDidMount() {
@@ -70,15 +84,19 @@ class EditDetails extends Component {
                         <form>
                             <TextField name='bio' type='text' label='Bio' rows='3 ' multiline
                                        placeholder='Short bio about yourself' className={classes.textField}
-                                       value={this.state.value} onChange={this.onChange} fullWidth/>
-                            <TextField name='bio' type='text' label='Bio'
-                                       placeholder='Short bio about yourself' className={classes.textField}
-                                       value={this.state.value} onChange={this.onChange} fullWidth/>
-                            <TextField name='bio' type='text' label='Bio'
-                                       placeholder='Short bio about yourself' className={classes.textField}
-                                       value={this.state.value} onChange={this.onChange} fullWidth/>
+                                       value={this.state.bio} onChange={this.handleChange} fullWidth/>
+                            <TextField name='location' type='text' label='Location'
+                                       placeholder='Your location' className={classes.textField}
+                                       value={this.state.location} onChange={this.handleChange} fullWidth/>
+                            <TextField name='website' type='text' label='Website'
+                                       placeholder='Your website or blogp age' className={classes.textField}
+                                       value={this.state.website} onChange={this.handleChange} fullWidth/>
                         </form>
                     </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleClose} variant='contained' color='secondary'>Cancel</Button>
+                        <Button onClick={this.handleSubmit} variant='contained' color='primary'>Save</Button>
+                    </DialogActions>
                 </Dialog>
             </>
         );

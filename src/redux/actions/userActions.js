@@ -72,7 +72,7 @@ export const logoutUser = () => dispatch => {
 
 export const uploadImage = formData => dispatch => {
     dispatch({ type: LOADING_USER });
-    axios.post('/user/image', formData)
+    axios.post('/api/user/image', formData)
         .then(() => {
             dispatch(getUserData());
         })
@@ -81,7 +81,7 @@ export const uploadImage = formData => dispatch => {
 
 export const editUserDetails = userDetails => dispatch => {
     dispatch({ type: LOADING_USER });
-    axios.post('/user', userDetails)
+    axios.post('/api/user', userDetails)
         .then(() => {
             dispatch(getUserData());
         })
