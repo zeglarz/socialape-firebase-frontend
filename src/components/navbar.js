@@ -24,9 +24,9 @@ class Navbar extends Component {
                 <Toolbar className='nav-container'>
                     {authenticated ? (
                         <>
-                            <MyButton tip='Create a Scream!'><AddIcon color='secondary'/></MyButton>
-                            <Link to='/'> <MyButton tip='Home'><HomeIcon color='secondary'/></MyButton>
-                            </Link>
+                            <MyButton tip='Create a Scream!'><AddIcon/></MyButton>
+                            <Link to='/'> <MyButton tip='Home'><HomeIcon/></MyButton></Link>
+                            <MyButton tip='Notifications'><Notifications/></MyButton>
                         </>
                     ) : (
                         <>
