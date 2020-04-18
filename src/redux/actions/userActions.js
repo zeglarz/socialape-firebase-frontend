@@ -76,7 +76,15 @@ export const uploadImage = formData => dispatch => {
         .then(() => {
             dispatch(getUserData());
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            dispatch({
+                type: SET_ERRORS,
+                payload: err.response.data
+            });
+            dispatch(getUserData());
+            setTimeout(() => dispatch({ type: CLEAR_ERRORS }), 3000);
+            console.log(err);
+        });
 };
 
 export const editUserDetails = userDetails => dispatch => {

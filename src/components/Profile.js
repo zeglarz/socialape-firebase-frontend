@@ -57,9 +57,10 @@ class Profile extends Component {
                 credentials: { handle, createdAt, imageUrl, bio, website, location },
                 loading,
                 authenticated
-            }
+            },
+            UI: { errors }
         } = this.props;
-
+        console.log(errors);
         let profileMarkup = !loading ? (authenticated ? (
             <Paper className={classes.paper}>
                 <div className={classes.profile}>
@@ -73,6 +74,7 @@ class Profile extends Component {
                         </MyButton>}
                     </div>
                     <hr/>
+                    <div>{errors.error}</div>
                     <div className="profile-details">
                         <MuiLink component={Link} to={`/users/${handle}`} colors='primary' variant='h5'>
                             @{handle}
@@ -126,7 +128,8 @@ Profile.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    user: state.user
+    user: state.user,
+    UI: state.UI
 });
 
 export default connect(mapStateToProps, { uploadImage, logoutUser })(withStyles(styles)(Profile));
