@@ -15,9 +15,10 @@ class Home extends Component {
 
     render() {
         const { screams, loading } = this.props.data;
-        let recentScreamMarkup = loading ? (
-            screams.map(scream => <Scream key={scream.screamId} scream={scream}/>)
-        ) : <p>Loading...</p>;
+        let recentScreamMarkup =
+            !loading ? (
+                screams.map(scream => <Scream key={scream.screamId} scream={scream}/>)
+            ) : <p>Loading...</p>;
         return (
             <Grid container spacing={6}>
                 <Grid item sm={8} xs={12}>

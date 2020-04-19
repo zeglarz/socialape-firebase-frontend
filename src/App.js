@@ -20,13 +20,13 @@ import Signup from './pages/signup';
 // Components
 import Navbar from './components/navbar';
 import AuthRoute from './util/AuthRoute';
-import Profile from './components/Profile';
 
 const theme = createMuiTheme(globalTheme);
 const token = localStorage.AuthToken;
 
 if (token) {
     const decodedToken = jwtDecode(token);
+
     if (decodedToken.exp * 1000 < Date.now()) {
         store.dispatch(logoutUser());
         window.location.href = '/login';
@@ -35,10 +35,12 @@ if (token) {
         axios.defaults.headers.common.Authorization = token;
         store.dispatch(getUserData());
     }
-
+} else {
+    store.dispatch(logoutUser());
 }
 
 function App() {
+
     return (
         <Provider store={store}>
             <MuiThemeProvider theme={theme}>

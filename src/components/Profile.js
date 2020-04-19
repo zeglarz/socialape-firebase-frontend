@@ -60,7 +60,7 @@ class Profile extends Component {
             },
             UI: { errors }
         } = this.props;
-        console.log(errors);
+
         let profileMarkup = !loading ? (authenticated ? (
             <Paper className={classes.paper}>
                 <div className={classes.profile}>
