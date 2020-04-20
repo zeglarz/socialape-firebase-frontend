@@ -30,6 +30,7 @@ import Button from '@material-ui/core/Button';
 
 const styles = {
     card: {
+        position: 'relative',
         display: 'flex',
         marginBottom: 20
     },
@@ -40,8 +41,10 @@ const styles = {
         padding: 25,
         objectFit: 'cover'
     },
-    delete: {
-        float: 'right'
+    deleteButton: {
+        top: '8%',
+        left: '92%',
+        position: 'absolute'
     }
 };
 
@@ -95,8 +98,8 @@ class Scream extends Component {
         );
 
         const deleteButton = authenticated && userHandle === handle && (
-            <MyButton tip='delete' onClick={this.handleOpen}> <DeleteIcon color='primary'
-                                                                          className='delete'/></MyButton>);
+            <MyButton tip='delete' onClick={this.handleOpen} btnClassName={classes.deleteButton}> <DeleteIcon
+                color='secondary'/></MyButton>);
 
         return (
             <Card className={classes.card}>
@@ -108,15 +111,6 @@ class Scream extends Component {
                 <CardContent className={classes.content}>
                     <Typography variant='h5' component={Link} color='primary'
                                 to={`/users/${userHandle}`}>{userHandle}</Typography>
-                    <Typography variant='body2'
-                                color='textSecondary'>{dayjs(createdAt).fromNow()}</Typography>
-                    <Typography variant='body1'>{body}</Typography>
-                    {likeButton}
-                    <span>{likeCount} likes</span>
-                    <MyButton tip='comments'>
-                        <ChatIcon color='primary'/>
-                    </MyButton>
-                    <span>{commentCount} comments</span>
                     {deleteButton}
                     <Dialog open={this.state.open}>
                         <DialogContent>
@@ -128,6 +122,16 @@ class Scream extends Component {
                                     color='secondary'>Delete</Button>
                         </DialogActions>
                     </Dialog>
+                    <Typography variant='body2'
+                                color='textSecondary'>{dayjs(createdAt).fromNow()}</Typography>
+                    <Typography variant='body1'>{body}</Typography>
+                    {likeButton}
+                    <span>{likeCount} likes</span>
+                    <MyButton tip='comments'>
+                        <ChatIcon color='primary'/>
+                    </MyButton>
+                    <span>{commentCount} comments</span>
+
                 </CardContent>
             </Card>
         );
