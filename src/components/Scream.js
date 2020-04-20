@@ -11,6 +11,10 @@ import MyButton from '../util/MyButton';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 // Icons
 import ChatIcon from '@material-ui/icons/Chat';
@@ -21,6 +25,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 // Redux stuff
 import { connect } from 'react-redux';
 import { likeScream, unlikeScream, deleteScream } from '../redux/actions/dataActions';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 const styles = {
     card: {
@@ -40,6 +46,9 @@ const styles = {
 };
 
 class Scream extends Component {
+    state = {
+        open: false
+    };
     likedScream = () => {
         if (this.props.user.likes && this.props.user.likes.find(like => like.screamId === this.props.scream.screamId)) {
             return true;
@@ -52,6 +61,12 @@ class Scream extends Component {
     };
     unlikeScream = () => {
         this.props.unlikeScream(this.props.scream.screamId);
+    };
+    handleOpen = () => {
+        this.setState({ open: true });
+    };
+    handleClose = () => {
+        this.setState({ open: false });
     };
 
     render() {
@@ -78,9 +93,10 @@ class Scream extends Component {
                     </MyButton>
                 )
         );
+
         const deleteButton = authenticated && userHandle === handle && (
-            <MyButton tip='delete' onClick={() => this.props.deleteScream(screamId)}> <DeleteIcon color='primary'
-                                                                                                  className='delete'/></MyButton>);
+            <MyButton tip='delete' onClick={this.handleOpen}> <DeleteIcon color='primary'
+                                                                          className='delete'/></MyButton>);
 
         return (
             <Card className={classes.card}>
@@ -102,6 +118,16 @@ class Scream extends Component {
                     </MyButton>
                     <span>{commentCount} comments</span>
                     {deleteButton}
+                    <Dialog open={this.state.open}>
+                        <DialogContent>
+                            <p>Are you sure you want to delete this scream?</p>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={this.handleClose} variant='contained' color='primary'>Cancel</Button>
+                            <Button onClick={() => this.props.deleteScream(screamId)} variant='contained'
+                                    color='secondary'>Delete</Button>
+                        </DialogActions>
+                    </Dialog>
                 </CardContent>
             </Card>
         );

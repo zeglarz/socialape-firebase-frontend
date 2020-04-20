@@ -27,7 +27,6 @@ export default function (state = initialState, action) {
                 ...state
             };
         case DELETE_SCREAM:
-            console.log(action.payload);
             return {
                 ...state,
                 screams: state.screams.filter(scream => scream.screamId !== action.payload)
