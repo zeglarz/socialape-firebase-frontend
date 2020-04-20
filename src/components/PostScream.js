@@ -56,7 +56,9 @@ class PostScream extends Component {
             body: this.state.body
         };
         this.props.postScream(newScream);
-        this.handleClose();
+        if (!this.props.errors) {
+            this.handleClose();
+        }
     };
 
     render() {
@@ -79,7 +81,7 @@ class PostScream extends Component {
                                 multiline
                                 rows='3'
                                 placeholder='Scream at your fellow apes!'
-                                error={!!errors.body}
+                                error={errors.hasOwnProperty('body')}
                                 helperText={errors.body}
                                 className={classes.textField}
                                 onChange={this.handleChange}
@@ -105,7 +107,8 @@ PostScream.propTypes = {
     UI: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
-    UI: state.UI
+    UI: state.UI,
+    errors: state.UI.errors
 });
 
 export default connect(mapStateToProps, { postScream })(withStyles(styles)(PostScream));
