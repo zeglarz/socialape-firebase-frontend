@@ -89,7 +89,7 @@ class EditDetails extends Component {
                                        placeholder='Your location' className={classes.textField}
                                        value={this.state.location} onChange={this.handleChange} fullWidth/>
                             <TextField name='website' type='text' label='Website'
-                                       placeholder='Your website or blogp age' className={classes.textField}
+                                       placeholder='Your website or blog page' className={classes.textField}
                                        value={this.state.website} onChange={this.handleChange} fullWidth/>
                         </form>
                     </DialogContent>

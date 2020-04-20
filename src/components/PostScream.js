@@ -56,6 +56,7 @@ class PostScream extends Component {
             body: this.state.body
         };
         this.props.postScream(newScream);
+        this.handleClose();
     };
 
     render() {
@@ -82,6 +83,7 @@ class PostScream extends Component {
                                 helperText={errors.body}
                                 className={classes.textField}
                                 onChange={this.handleChange}
+                                fullWidth
                             />
                             <DialogActions><Button type='submit' variant='contained' color='primary'
                                                    className={classes.submitButton}

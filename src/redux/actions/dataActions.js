@@ -73,9 +73,9 @@ export const postScream = newScream => dispatch => {
     axios.post('/api/scream', newScream)
         .then(res => {
             dispatch({
-                type: POST_SCREAM,
-                payload: res.data
+                type: POST_SCREAM
             });
+            dispatch(getScreams());
             dispatch({ type: CLEAR_ERRORS });
         })
         .catch(err => {
