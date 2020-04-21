@@ -20,12 +20,7 @@ import { connect } from 'react-redux';
 import { postScream } from '../redux/actions/dataActions';
 
 const styles = theme => ({
-    ...theme.spreadThis,
-    closeButton: {
-        position: 'absolute',
-        top: '5px',
-        right: '5px'
-    }
+    ...theme.spreadThis
 });
 
 class PostScream extends Component {

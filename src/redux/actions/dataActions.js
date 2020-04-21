@@ -8,7 +8,8 @@ import {
     POST_SCREAM,
     SET_ERRORS,
     CLEAR_ERRORS,
-    STOP_LOADING_UI
+    STOP_LOADING_UI,
+    SET_SCREAM
 } from '../types';
 import axios from 'axios';
 
@@ -95,10 +96,10 @@ export const getScream = screamId => dispatch => {
     axios.get(`/api/scream/${screamId}`)
         .then(res => {
             dispatch({
-                type: SET_SCREAMS,
+                type: SET_SCREAM,
                 payload: res.data
             });
-            dispatch({type: STOP_LOADING_UI})
+            dispatch({ type: STOP_LOADING_UI });
         })
         .catch(err => console.log(err));
 

@@ -14,6 +14,17 @@ export default {
         }
     },
     spreadThis: {
+        buttons: {
+            textAlign: 'center',
+            '& a': {
+                margin: '20px 10px'
+            },
+            closeButton: {
+                position: 'absolute',
+                top: '5px',
+                right: '5px'
+            }
+        },
         typography: {
             useNextVariants: true
         },
@@ -80,12 +91,6 @@ export default {
                 '&:hover': {
                     cursor: 'pointer'
                 }
-            }
-        },
-        buttons: {
-            textAlign: 'center',
-            '& a': {
-                margin: '20px 10px'
             }
         }
     }
