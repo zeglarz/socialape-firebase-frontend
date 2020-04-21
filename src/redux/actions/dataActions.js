@@ -113,14 +113,14 @@ export const submitComment = (screamId, commeentData) => dispatch => {
             });
             dispatch({
                 type: CLEAR_ERRORS
-            })
-                .catch(err => {
-                    console.log(err);
-                    dispatch({
-                        type: SET_ERRORS,
-                        payload: err.response.data
-                    })
-                });
-
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            dispatch({
+                type: SET_ERRORS,
+                payload: err.response.data
+            });
+            setTimeout(() => dispatch({ type: CLEAR_ERRORS }), 3000);
         });
 };

@@ -20,11 +20,37 @@ class CommentForm extends Component {
         body: ''
     };
 
-    render() {
-        return (
-            <div>
+    handleChange = e => {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    };
+    handleSubmit = e => {
+        e.preventDefault();
+        this.props.submitComment(this.props.screamId, { body: this.state.body });
+        this.setState({ body: '' });
+    };
 
-            </div>
+    render() {
+        const { classes, UI: { errors }, authenticated } = this.props;
+        return authenticated && (
+            <Grid item sm={12} style={{ textAlign: 'center' }}>
+                <form onSubmit={this.handleSubmit}>
+                    <TextField
+                        name='body'
+                        type='text'
+                        label='Comment on scream'
+                        error={errors.hasOwnProperty('comment')}
+                        helperText={errors.comment}
+                        value={this.state.body}
+                        onChange={this.handleChange}
+                        fullWidth
+                        className={classes.textField}
+                    />
+                    <Button type='submit' varian='contained' color='primary' className={classes.button}>Submit</Button>
+                    <hr className={classes.visibleSeparator}/>
+                </form>
+            </Grid>
         );
     }
 }
@@ -32,7 +58,8 @@ class CommentForm extends Component {
 CommentForm.propTypes = {
     UI: PropTypes.object.isRequired,
     submitComment: PropTypes.func.isRequired,
-    authenticated: PropTypes.bool.isRequired
+    authenticated: PropTypes.bool.isRequired,
+    classes: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
     UI: state.UI,
