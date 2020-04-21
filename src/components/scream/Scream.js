@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import MyButton from '../util/MyButton';
+import MyButton from '../../util/MyButton';
 import ScreamDialog from './ScreamDialog';
 import LikeButton from './LikeButton';
 // MUI stuff
@@ -23,7 +23,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 // Redux stuff
 import { connect } from 'react-redux';
-import { deleteScream } from '../redux/actions/dataActions';
+import { deleteScream } from '../../redux/actions/dataActions';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 

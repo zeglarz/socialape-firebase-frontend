@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
-import MyButton from '../util/MyButton';
+import MyButton from '../../util/MyButton';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
+import LikeButton from './LikeButton';
 
 // MUI stuff
 import Dialog from '@material-ui/core/Dialog';
@@ -21,7 +22,9 @@ import UnfoldMore from '@material-ui/icons/UnfoldMore';
 
 //Redux stuff
 import { connect } from 'react-redux';
-import { getScream } from '../redux/actions/dataActions';
+import { getScream } from '../../redux/actions/dataActions';
+import ChatIcon from '@material-ui/icons/Chat';
+import CardContent from '@material-ui/core/CardContent';
 
 const styles = theme => ({
     ...theme.spreadThis,
@@ -86,6 +89,12 @@ class ScreamDialog extends Component {
                     </Typography>
                     <hr className={classes.invisibleSeparator}/>
                     <Typography variant='body1'>{body}</Typography>
+                    <LikeButton screamId={screamId}/>
+                    <span>{likeCount} likes</span>
+                    <MyButton tip='comments'>
+                        <ChatIcon color='primary'/>
+                    </MyButton>
+                    <span>{commentCount} comments</span>
                 </Grid>
             </Grid>
         );

@@ -9,7 +9,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-import MyButton from '../util/MyButton';
+import MyButton from '../../util/MyButton';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 // Icons
@@ -17,7 +17,7 @@ import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
 // Redux Stuff
 import { connect } from 'react-redux';
-import { postScream } from '../redux/actions/dataActions';
+import { postScream } from '../../redux/actions/dataActions';
 
 const styles = theme => ({
     ...theme.spreadThis

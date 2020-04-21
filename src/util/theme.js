@@ -18,12 +18,13 @@ export default {
             textAlign: 'center',
             '& a': {
                 margin: '20px 10px'
-            },
-            closeButton: {
-                position: 'absolute',
-                top: '5px',
-                right: '5px'
             }
+
+        },
+        closeButton: {
+            position: 'absolute',
+            top: '5px',
+            right: '5px'
         },
         typography: {
             useNextVariants: true

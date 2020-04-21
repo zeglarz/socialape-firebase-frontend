@@ -4,7 +4,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import EditDetails from './EditDetails';
-import MyButton from '../util/MyButton';
+import MyButton from '../../util/MyButton';
 // MUI Stuff
 import { Button, Paper, Typography } from '@material-ui/core/';
 import MuiLink from '@material-ui/core/Link';
@@ -19,7 +19,7 @@ import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
 
 // Redux stuff
 import { connect } from 'react-redux';
-import { uploadImage, logoutUser } from '../redux/actions/userActions';
+import { uploadImage, logoutUser } from '../../redux/actions/userActions';
 
 
 const styles = theme => ({

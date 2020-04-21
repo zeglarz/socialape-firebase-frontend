@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import MyButton from '../util/MyButton';
+import MyButton from '../../util/MyButton';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
 // Icons
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import Favorite from '@material-ui/icons/Favorite';
-
 // redux
 import { connect } from 'react-redux';
-import { likeScream, unlikeScream } from '../redux/actions/dataActions';
+import { likeScream, unlikeScream } from '../../redux/actions/dataActions';
 
 class LikeButton extends Component {
     likedScream = () => {
@@ -27,13 +25,14 @@ class LikeButton extends Component {
     };
 
     render() {
-        const { user: { authenticated } } = this.props;
-        const likeButton = !authenticated ? (
-            <MyButton tip='Like'>
-                <Link to='/login'>
+        const { authenticated } = this.props.user;
+        return !authenticated ? (
+            <Link to='/login'>
+                <MyButton tip='Like'>
                     <FavoriteBorder color='primary'/>
-                </Link>
-            </MyButton>
+                </MyButton>
+            </Link>
+
         ) : (this.likedScream() ?
                 (
                     <MyButton tip='Unlike' onClick={this.unlikeScream}>
@@ -45,7 +44,6 @@ class LikeButton extends Component {
                     </MyButton>
                 )
         );
-        return likeButton;
     }
 }
 
