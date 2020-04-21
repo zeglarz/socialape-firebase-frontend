@@ -51,19 +51,7 @@ class Scream extends Component {
     state = {
         open: false
     };
-    likedScream = () => {
-        if (this.props.user.likes && this.props.user.likes.find(like => like.screamId === this.props.scream.screamId)) {
-            return true;
-        } else {
-            return false;
-        }
-    };
-    likeScream = () => {
-        this.props.likeScream(this.props.scream.screamId);
-    };
-    unlikeScream = () => {
-        this.props.unlikeScream(this.props.scream.screamId);
-    };
+
     handleOpen = () => {
         this.setState({ open: true });
     };
@@ -108,7 +96,7 @@ class Scream extends Component {
                     <Typography variant='body2'
                                 color='textSecondary'>{dayjs(createdAt).fromNow()}</Typography>
                     <Typography variant='body1'>{body}</Typography>
-                    <LikeButton/>
+                    <LikeButton screamId={screamId}/>
                     <span>{likeCount} likes</span>
                     <MyButton tip='comments'>
                         <ChatIcon color='primary'/>
