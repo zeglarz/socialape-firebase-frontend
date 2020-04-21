@@ -11,11 +11,12 @@ import store from './redux/store';
 import { SET_AUTHENTICATED } from './redux/types';
 import { logoutUser, getUserData } from './redux/actions/userActions';
 import axios from 'axios';
-// Pages
 
+// Pages
 import Home from './pages/home';
 import Login from './pages/login';
 import Signup from './pages/signup';
+import User from './pages/user';
 
 // Components
 import Navbar from './components/layout/navbar';
@@ -49,6 +50,7 @@ function App() {
                     <div className="container">
                         <Switch>
                             <Route exact path='/' component={Home}/>
+                            <Route exact path='/users/:handle' component={User}/>
                             <AuthRoute exact path='/login' component={Login}/>
                             <AuthRoute exact path='/signup' component={Signup}/>
                         </Switch>
