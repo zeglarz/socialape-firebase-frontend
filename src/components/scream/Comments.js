@@ -17,7 +17,7 @@ class Comments extends Component {
         const { comments, classes } = this.props;
         return (
             <Grid container>
-                {comments.map(comment => {
+                {comments && comments.map(comment => {
                     const { body, createdAt, userImage, userHandle } = comment;
                     return (
                         <Fragment key={createdAt}>
