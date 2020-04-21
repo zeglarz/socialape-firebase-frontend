@@ -49,6 +49,15 @@ export default {
             fontSize: '0.8rem',
             margin: '5px auto'
         },
+        invisibleSeparator: {
+            border: 'none',
+            margin: 4
+        },
+        visibleSeparator: {
+            width: '100%',
+            borderBottom: '1px solid rgba(0, 0, 0, 0, 0.1)',
+            marginBottom: 20
+        },
         small: {
             display: 'block',
             margin: '10px auto'

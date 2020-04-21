@@ -51,7 +51,7 @@ class PostScream extends Component {
             body: this.state.body
         };
         this.props.postScream(newScream);
-        if (!this.props.errors) {
+        if (!this.props.errors.hasOwnProperty('body')) {
             this.handleClose();
         }
     };

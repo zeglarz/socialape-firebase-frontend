@@ -27,7 +27,8 @@ import { deleteScream } from '../../redux/actions/dataActions';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-const styles = {
+const styles = theme => ({
+    ...theme.spreadThis,
     card: {
         position: 'relative',
         display: 'flex',
@@ -45,7 +46,7 @@ const styles = {
         left: '92%',
         position: 'absolute'
     }
-};
+});
 
 class Scream extends Component {
     state = {

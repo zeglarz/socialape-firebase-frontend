@@ -5,12 +5,11 @@ import MyButton from '../../util/MyButton';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 import LikeButton from './LikeButton';
+import Comments from './Comments';
 
 // MUI stuff
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
@@ -28,10 +27,7 @@ import CardContent from '@material-ui/core/CardContent';
 
 const styles = theme => ({
     ...theme.spreadThis,
-    invisibleSeparator: {
-        border: 'none',
-        margin: 4
-    },
+
     profileImage: {
         maxWidth: 200,
         height: 200,
@@ -66,7 +62,7 @@ class ScreamDialog extends Component {
     };
 
     render() {
-        const { classes, scream: { screamId, body, createdAt, likeCount, commentCount, userImage, userHandle }, UI: { loading } } = this.props;
+        const { classes, scream: { screamId, body, createdAt, likeCount, commentCount, userImage, userHandle, comments }, UI: { loading } } = this.props;
         const dialogMarkup = loading ? (
             <CircularProgress size={200} thickness={2}/>
         ) : (
@@ -96,6 +92,8 @@ class ScreamDialog extends Component {
                     </MyButton>
                     <span>{commentCount} comments</span>
                 </Grid>
+                <hr className={classes.visibleSeparator}/>
+                <Comments comments={comments}/>
             </Grid>
         );
         return (
