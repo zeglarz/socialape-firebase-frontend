@@ -20,7 +20,7 @@ import CloseIcon from '@material-ui/icons/Close';
 
 //Redux stuff
 import { connect } from 'react-redux';
-import mapStateToProps from 'react-redux/lib/connect/mapStateToProps';
+import { getScream } from '../redux/actions/dataActions';
 
 const styles = theme => ({
     ...theme.spreadThis,
@@ -41,6 +41,17 @@ class PostScream extends Component {
     }
 }
 
-PostScream.propTypes = {};
+PostScream.propTypes = {
+    getScream: PropTypes.func.isRequired,
+    screamId: PropTypes.string.isRequired,
+    userHandle: PropTypes.string.isRequired,
+    scream: PropTypes.object.isRequired,
+    UI: PropTypes.object.isRequired
+};
 
-export default connect(mapStateToProps)(withStyles(styles)(PostScream));
+const mapStateToProps = state => ({
+    scream: state.data.scream,
+    UI: state.UI
+});
+
+export default connect(mapStateToProps, { getScream })(withStyles(styles)(PostScream));
