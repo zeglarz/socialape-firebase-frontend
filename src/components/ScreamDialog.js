@@ -42,6 +42,10 @@ const styles = theme => ({
         position: 'absolute',
         top: 5,
         right: 5
+    },
+    expandButton: {
+        position: 'absolute',
+        right: 20
     }
 
 });
@@ -61,7 +65,7 @@ class ScreamDialog extends Component {
     render() {
         const { classes, scream: { screamId, body, createdAt, likeCount, commentCount, userImage, userHandle }, UI: { loading } } = this.props;
         const dialogMarkup = loading ? (
-            <CircularProgress size={200}/>
+            <CircularProgress size={200} thickness={2}/>
         ) : (
             <Grid container spacing={16}>
                 <Grid item sm={5}>
