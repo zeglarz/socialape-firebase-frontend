@@ -9,7 +9,7 @@ import {
     SET_ERRORS,
     CLEAR_ERRORS,
     STOP_LOADING_UI,
-    SET_SCREAM
+    SET_SCREAM, SUBMIT_COMMENT
 } from '../types';
 import axios from 'axios';
 
@@ -102,4 +102,25 @@ export const getScream = screamId => dispatch => {
         })
         .catch(err => console.log(err));
 
+};
+
+export const submitComment = (screamId, commeentData) => dispatch => {
+    axios.post(`/api/scream/${screamId}/comment`, commeentData)
+        .then(res => {
+            dispatch({
+                type: SUBMIT_COMMENT,
+                payload: res.data
+            });
+            dispatch({
+                type: CLEAR_ERRORS
+            })
+                .catch(err => {
+                    console.log(err);
+                    dispatch({
+                        type: SET_ERRORS,
+                        payload: err.response.data
+                    })
+                });
+
+        });
 };
