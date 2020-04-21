@@ -7,7 +7,8 @@ import {
     LOADING_UI,
     POST_SCREAM,
     SET_ERRORS,
-    CLEAR_ERRORS
+    CLEAR_ERRORS,
+    STOP_LOADING_UI
 } from '../types';
 import axios from 'axios';
 
@@ -86,5 +87,19 @@ export const postScream = newScream => dispatch => {
             });
             setTimeout(() => dispatch({ type: CLEAR_ERRORS }), 3000);
         });
+
+};
+
+export const getScream = screamId => dispatch => {
+    dispatch({ type: LOADING_UI });
+    axios.get(`/api/scream/${screamId}`)
+        .then(res => {
+            dispatch({
+                type: SET_SCREAMS,
+                payload: res.data
+            });
+            dispatch({type: STOP_LOADING_UI})
+        })
+        .catch(err => console.log(err));
 
 };

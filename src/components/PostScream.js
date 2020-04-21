@@ -89,7 +89,7 @@ class PostScream extends Component {
                             />
                             <DialogActions><Button type='submit' variant='contained' color='primary'
                                                    className={classes.submitButton}
-                                                   dispabled={loading}>
+                                                   disabled={loading}>
                                 {!loading ? 'Submit' :
                                     <CircularProgress size={30} className={classes.progressSpinner}/>}
                             </Button></DialogActions>
