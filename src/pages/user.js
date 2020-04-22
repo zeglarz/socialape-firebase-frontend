@@ -11,11 +11,14 @@ import Profile from '../components/profile/Profile';
 
 class User extends Component {
     state = {
-        user: {}
+        user: {},
+        screamIdParam: null
     };
 
     componentDidMount() {
-        const { handle } = this.props.match.params;
+        const { handle, screamId } = this.props.match.params;
+
+        if (screamId) this.setState({ screamIdParam: screamId });
         this.props.getUserData(handle);
         axios.get(`/api/user/${handle}`)
             .then(res => {
@@ -24,8 +27,20 @@ class User extends Component {
     }
 
     render() {
-        const screamsMarkup = !this.props.data.loading ? (
-            this.props.data.screams.map(scream => <Scream key={scream.screamId} scream={scream}/>)
+        const { loading, screams } = this.props.data;
+        const { screamIdParam, user } = this.state;
+        const screamsMarkup = !loading ? (
+            screams.length === 0 ? (<p>No screams yet</p>) : screamIdParam ? (
+                screams.map(scream => {
+                    if (scream.screamId !== screamIdParam) {
+                        return <Scream key={scream.screamId} scream={scream}/>;
+                    } else return <Scream key={scream.screamId} scream={scream} openDialog/>;
+                })
+            ) : (screams.map(scream => {
+                    return <Scream
+                        key={scream.screamId} scream={scream}/>;
+                }
+            ))
         ) : <p>Loading...</p>;
 
         return (
@@ -34,7 +49,7 @@ class User extends Component {
                     {screamsMarkup}
                 </Grid>
                 <Grid item sm={4} xs={12}>
-                    {!this.props.data.loading ? (<StaticProfile profile={this.state.user}/>) : (<p>Loading...</p>)}
+                    {!loading ? (<StaticProfile profile={user}/>) : (<p>Loading...</p>)}
                 </Grid>
             </Grid>
         );
