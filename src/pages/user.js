@@ -1,27 +1,50 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
+import Scream from '../components/scream/Scream';
+import Grid from '@material-ui/core/Grid';
+import StaticProfile from '../components/profile/StaticProfile';
+import axios from 'axios';
 // Redux stuff
 import { connect } from 'react-redux';
 import { getUserData } from '../redux/actions/dataActions';
+import Profile from '../components/profile/Profile';
 
 class User extends Component {
+    state = {
+        user: {}
+    };
+
     componentDidMount() {
-        console.log(this.props.match.params.handle);
-        this.props.getUserData(this.props.match.params.handle);
+        const { handle } = this.props.match.params;
+        this.props.getUserData(handle);
+        axios.get(`/api/user/${handle}`)
+            .then(res => {
+                this.setState({ user: res.data.user });
+            });
     }
 
     render() {
-        const { data: { user: { handle, imageUrl, createdAt, location, website, bio }, loading, screams } } = this.props;
+        const screamsMarkup = !this.props.data.loading ? (
+            this.props.data.screams.map(scream => <Scream key={scream.screamId} scream={scream}/>)
+        ) : <p>Loading...</p>;
+
         return (
-            <div>
-                username is {!loading && handle}
-            </div>
+            <Grid container spacing={6}>
+                <Grid item sm={8} xs={12}>
+                    {screamsMarkup}
+                </Grid>
+                <Grid item sm={4} xs={12}>
+                    {!this.props.data.loading ? (<StaticProfile profile={this.state.user}/>) : (<p>Loading...</p>)}
+                </Grid>
+            </Grid>
         );
     }
 }
 
-User.propTypes = {};
+User.propTypes = {
+    getUserData: PropTypes.func.isRequired,
+    data: PropTypes.object.isRequired
+};
 
 const mapStateToProps = state => ({
     data: state.data

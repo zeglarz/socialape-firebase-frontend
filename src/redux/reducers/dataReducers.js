@@ -68,8 +68,7 @@ export default function (state = initialState, action) {
         case GET_USER:
             return {
                 ...state,
-                user: action.payload.user,
-                screams: action.payload.screams,
+                screams: action.payload,
                 loading: false
             };
         default:

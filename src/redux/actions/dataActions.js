@@ -130,7 +130,7 @@ export const getUserData = handle => dispatch => {
         .then(res => {
             dispatch({
                 type: GET_USER,
-                payload: res.data
+                payload: res.data.screams
             });
         })
         .catch(err => console.log(err));
