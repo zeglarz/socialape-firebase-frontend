@@ -19,7 +19,7 @@ class Home extends Component {
         let recentScreamMarkup =
             !loading ? (
                 screams.map(scream => <Scream key={scream.screamId} scream={scream}/>)
-            ) : <ScreamSceleton/>;
+            ) : <ScreamSceleton contentSceleton/>;
         return (
             <Grid container spacing={6}>
                 <Grid item sm={8} xs={12}>
