@@ -62,6 +62,15 @@ class ScreamDialog extends Component {
         }
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log(this.props.screamId);
+        if (prevProps.screamId !== this.props.screamId) {
+            console.log('tutaj');
+            this.handleOpen();
+        }
+    }
+
+
     handleOpen = () => {
         let oldPath = window.location.pathname;
 
@@ -75,6 +84,7 @@ class ScreamDialog extends Component {
         this.setState({ open: true, oldPath, newPath });
         this.props.getScream(this.props.screamId);
     };
+
     handleClose = () => {
         window.history.pushState(null, null, this.state.oldPath);
 

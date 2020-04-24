@@ -4,6 +4,8 @@ import Scream from '../components/scream/Scream';
 import Grid from '@material-ui/core/Grid';
 import StaticProfile from '../components/profile/StaticProfile';
 import axios from 'axios';
+import ScreamSkeleton from '../util/ScreamSceleton';
+
 // Redux stuff
 import { connect } from 'react-redux';
 import { getUserData } from '../redux/actions/dataActions';
@@ -26,22 +28,31 @@ class User extends Component {
             });
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevState.screamIdParam !== this.props.match.params.screamId) {
+            this.setState({ screamIdParam: this.props.match.params.screamId });
+        }
+    }
+
     render() {
         const { loading, screams } = this.props.data;
         const { screamIdParam, user } = this.state;
-        const screamsMarkup = !loading ? (
-            screams.length === 0 ? (<p>No screams yet</p>) : screamIdParam ? (
-                screams.map(scream => {
-                    if (scream.screamId !== screamIdParam) {
-                        return <Scream key={scream.screamId} scream={scream}/>;
-                    } else return <Scream key={scream.screamId} scream={scream} openDialog/>;
-                })
-            ) : (screams.map(scream => {
-                    return <Scream
-                        key={scream.screamId} scream={scream}/>;
+
+        const screamsMarkup = loading ? (
+            <ScreamSkeleton/>
+        ) : screams === null ? (
+            <p>No screams from this user</p>
+        ) : !screamIdParam ? (
+            screams.map((scream) => <Scream key={scream.screamId} scream={scream}/>)
+        ) : (
+            screams.map((scream) => {
+                if (scream.screamId !== screamIdParam)
+                    return <Scream key={scream.screamId} scream={scream}/>;
+                else {
+                    return <Scream key={scream.screamId} scream={scream} path={window.location.pathname} openDialog/>;
                 }
-            ))
-        ) : <p>Loading...</p>;
+            })
+        );
 
         return (
             <Grid container spacing={6}>

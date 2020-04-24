@@ -27,6 +27,19 @@ class Notifications extends Component {
         anchorEl: null
     };
 
+    handleOpen = e => {
+        this.setState({ anchorEl: e.target });
+    };
+    handleClose = () => {
+        this.setState({ anchorEl: null });
+    };
+    onMenuOpened = () => {
+        let unreadNotificationsIds = this.props.notifications
+            .filter(not => !not.read)
+            .map(not => not.notificationsId);
+        this.props.markNotificationRead(unreadNotificationsIds);
+    };
+
     render() {
         const { notifications } = this.props;
         const { anchorEl } = this.state;
@@ -45,7 +58,7 @@ class Notifications extends Component {
         let notificationsMarkup = notifications && notifications.length > 0 ? (
             notifications.map(not => {
                 const verb = not.type === 'like' ? 'liked' : 'commented on';
-                const time = dayjs(not.createdAd).fromNow();
+                const time = dayjs(not.createdAt).fromNow();
                 const iconColor = not.read ? 'primary' : 'secondary';
                 const icon = not.type === 'like' ? (
                     <FavoriteIcon color={iconColor} style={{ marginRight: 10 }}/>
@@ -61,7 +74,7 @@ class Notifications extends Component {
                             variant='body1'
                             to={`/users/${not.recipient}/scream/${not.screamId}`}
                         >
-                            nanan
+                            {not.sender} {verb} your scream {time}
                         </Typography>
                     </MenuItem>
                 );
@@ -90,7 +103,7 @@ class Notifications extends Component {
 
 Notification.propTypes = {
     markNotificationRead: PropTypes.func.isRequired,
-    notifications: PropTypes.object.isRequired
+    notifications: PropTypes.array.isRequired
 };
 const mapStateToProps = state => ({
     notifications: state.user.notifications
