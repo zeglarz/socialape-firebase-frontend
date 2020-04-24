@@ -26,6 +26,7 @@ import AuthRoute from './util/AuthRoute';
 
 const theme = createMuiTheme(globalTheme);
 const token = localStorage.AuthToken;
+axios.defaults.baseURL = 'https://us-east1-socialape-659f4.cloudfunctions.net';
 
 if (token) {
     const decodedToken = jwtDecode(token);
@@ -38,7 +39,6 @@ if (token) {
         store.dispatch(getUserData());
     }
 }
-
 
 function App() {
 
